@@ -8,7 +8,10 @@ public class Player {
 
     public Player() {
         Scanner scanner = new Scanner(System.in);
+        // Increment the playerCount
         playerCount++;
+        // Ask for the user's name
         System.out.print("Enter a name for player #" + playerCount + " : ");
+        name = scanner.nextLine();
     }
 }
