@@ -6,6 +6,7 @@ public class WordGolf {
         String consonants = "qwrtpsdfghjklzxcvbnm";
         for (int i = 0; i < word.length(); i++) {
             String currentChar = word.substring(i, i + 1).toLowerCase();
+            // Check if the current character is a vowel or a consonant
             if (vowels.contains(currentChar)) {
                 points *= 2;
             }
@@ -18,6 +19,7 @@ public class WordGolf {
 
     // Method that splits up a sentence into words and calls the parseWord method on each respective word
     public static int parseSentence(String sentence) {
+        sentence = trimSentence(sentence);
         int points = 0;
         int startIndex = 0;
         int endIndex = 0;
@@ -32,5 +34,20 @@ public class WordGolf {
             }
         }
         return points;
+    }
+
+    // Trims extra spaces
+    private static String trimSentence(String sentence) {
+        String trimmedSentence = "";
+        String lastChar = " ";
+        for (int i = 0; i < sentence.length(); i++) {
+            String currentChar = sentence.substring(i, i + 1);
+            // If the currentChar isn't the same as lastChar, and they aren't spaces then add currentChar to trimmedSentence
+            if (!(currentChar.equals(" ") && lastChar.equals(" "))) {
+                trimmedSentence += currentChar;
+            }
+            lastChar = currentChar;
+        }
+        return trimmedSentence;
     }
 }
