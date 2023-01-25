@@ -4,7 +4,6 @@ public class Player {
     private boolean participating = true;
     private int strokeNum = 0;
     private static int playerCount = 0;
-    private int numSentences;
     private int totalPoints;
     private String name;
 
@@ -21,16 +20,39 @@ public class Player {
         name = scanner.nextLine();
     }
 
-    public void stroke() {
+    // Make a stroke. If the player wins on a stroke then return true
+    public boolean stroke() {
         Scanner scanner = new Scanner(System.in);
         String sentence = "";
         // Increment the strokeNum
         strokeNum++;
-        System.out.print("Enter your sentence for this round : ");
+        System.out.println();
+        System.out.print(name + ", enter your sentence for this round : ");
         sentence = scanner.nextLine();
+        // If the player wants to quit then set participating to false
         if (sentence.equals("QUIT")) {
-
+            lameQuitterMessage();
+            participating = false;
+            return false;
         }
+        int points = WordGolf.parseSentence(sentence);
+        System.out.println("Stroke #" + strokeNum + ": \"" + sentence + "\" = ");
+
+        if (totalPoints < 100) {
+            System.out.println(points + " points");
+            totalPoints += points;
+        }
+        else if (totalPoints > 100) {
+            System.out.println("-" + points + " points");
+            totalPoints -= points;
+        }
+        else {
+            System.out.println("You won in " + strokeNum + " strokes!");
+            return true;
+        }
+        System.out.println("Your total is " + totalPoints + " points.");
+        System.out.println("You are " + Math.abs(totalPoints - 100) + " points away from your goal!");
+        return false;
     }
 
     // Terrorize the user if they desire to quit ;)
