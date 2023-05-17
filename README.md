@@ -1,1 +1,1 @@
-# WordGolf
+# word-golf
